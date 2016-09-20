@@ -1,18 +1,24 @@
-from itertools import permutations
+def next_permutation(a):
+    i = len(a)-1
+    while i>0 and a[i-1]>=a[i]:
+        i-=1
+    if i<=0:
+        return 'no answer'
+    j = len(a)-1
+    while a[j]<=a[i-1]:
+        j-=1
+    temp = a[i-1]
+    a[i-1] = a[j]
+    a[j] = temp
+    j = len(a)-1
+    while i < j:
+        temp = a[i]
+        a[i] = a[j]
+        a[j] = temp
+        i+=1
+        j-=1
+    return a
 t = int(raw_input())
 for i in range(0,t):
     a = raw_input()
-    b = a
-    p = permutations(sorted(b))
-    flag = 0
-    f=0
-    for pi in p:
-        if ('').join(pi)== a and flag==0:
-            flag=1
-        elif flag == 1:
-            if ('').join(pi)==a:
-                print 'no answer'
-                break
-            else:
-                print ('').join(pi)
-                break
+    print ('').join(next_permutation(list(a)))
